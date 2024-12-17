@@ -57,9 +57,8 @@ BEQ
 funct = 10100
 branches to dataMem[instr[10:6]] if ra == rb
 
-*** Instruction syntax examples***
+*** Instruction syntax examples***  
 SB R1, 1  
-
 LB R1, 1  
 LI R2, 2  
 DISPLAY R3  
