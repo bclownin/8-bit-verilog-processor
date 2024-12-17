@@ -58,7 +58,7 @@ funct = 10100
 branches to dataMem[instr[10:6]] if ra == rb
 
 *** Instruction syntax examples***
-SB R1, 1
+SB R1, 1 /n
 LB R1, 1
 LI R2, 2
 DISPLAY R3
