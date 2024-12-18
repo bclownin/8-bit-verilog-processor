@@ -1,5 +1,4 @@
-readme
-This is an 8 bit processor with a Harvard architecture and custom ISA based on a MIPs processor. 
+This is an 8 bit processor with a Harvard architecture and custom ISA and 5 stage pipeline based on MIPS architecture.
 
 Once files are added into a Vivado project, compile Assembler.cpp into an exe and place Assembler.exe and program.txt into the same directory as memory.mem (right click on 
 memory.mem and select source file properties to see it's location). Write your program and run the Assembler and it will update memory.mem. Updating the memory.mem 
