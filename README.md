@@ -1,8 +1,8 @@
-This is an 8 bit processor with a Harvard architecture and custom ISA and 5 stage pipeline based on MIPS architecture.
+This is an 8 bit processor with a Harvard architecture, custom ISA, and a 5 stage pipeline based on MIPS.
 
 Once files are added into a Vivado project, compile Assembler.cpp into an exe and place Assembler.exe and program.txt into the same directory as memory.mem (right click on 
-memory.mem and select source file properties to see it's location). Write your program and run the Assembler and it will update memory.mem. Updating the memory.mem 
-requires a complete rebuild (synth > impl > bit file) to take affect. 
+memory.mem and select source file properties to see it's location). Programs must saved as program.txt. Run the Assembler and it will update memory.mem. Updating the memory.mem 
+requires a complete rebuild (synth > impl > bit file) to take affect.
 
 Pyssembler.py can be used instead of Assembler.cpp, it is the same program but written in python.
 
