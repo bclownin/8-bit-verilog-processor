@@ -41,9 +41,9 @@ module Control(
 //	);      
     
     wire BTN_0;
-    debouncer btn0 (BTN_0,BTN[0], clk); 
+    debouncer btn0 (BTN_0,BTN[0], clk25); 
     wire BTN_2;
-    debouncer btn2 (BTN_2, BTN[2],clk);
+    debouncer btn2 (BTN_2, BTN[2],clk25); //using clk25 (original used clk, worked great, lots of warnings)
     wire instrLoop = SW[3]; //option to halt processor when instructions run out or continuously loop (not implemented)
 
     //instruction_memory output
@@ -420,21 +420,19 @@ always @ (*)begin
     end
     
     MEM_WB memAccess_WriteBack(
-    //.funct_o (funct_WBo), 
+    .funct_o (funct_WBo),
     .immed_o (immed_WBo), 
     .memData_o (memDataOut_WBo), 
     .ALUresult_o (ALUresult_WBo), 
     .targetReg_o (targetReg_WBo),
     .regWrite_o (regWrite_WBo), 
-    //.zeroFlag_o (zeroFlag_WBo), 
     .immed (immed_MEMo), 
     .memData (memDataOut), 
     .ALUresult (ALUresult_MEMo), 
     .targetReg (targetReg_MEMo), 
     .regWrite (regWrite_MEMo), 
-    //.zeroFlag (zeroFlag_MEMo), 
-    //.funct (funct_MEMo), 
     .jumpClear (jumpClear), 
+    .funct (funct_MEMo),
     .clk (clk25)
     );
     
@@ -448,8 +446,8 @@ always @ (*)begin
          end
     end 
    
-     assign LED[7:0] = jumpCount;
-     assign LED[15:8] = jumpLimit;
+     assign LED[7:0] = displayData;
+     //assign LED[15:8] = jumpLimit;
    
    //bin2bcd module is from RealDigital.org
    //takes a 14 bit binary input and outputs 4 digit (16 bit) bcd out
@@ -458,18 +456,25 @@ always @ (*)begin
    wire [11:0] BCD_result_extended2;
    bin2bcd bcd (BCD_result_extended, extended);
    bin2bcd bcd2 (BCD_result_extended2, extended2);
-   always @(posedge BTN_0 or posedge BTN_2) begin
-    if (BTN_0) begin
+   always @(posedge clk25) begin
+    if (BTN_0 && !BTN_2) begin
       ones = BCD_result_extended[3:0];
       tens = BCD_result_extended[7:4];
       hundreds = BCD_result_extended[11:8];
+      hundreds = BCD_result_extended[11:8];
     end
-    else if (BTN_2) begin
+    else if (BTN_2 & !BTN_0) begin
       ones = BCD_result_extended2[3:0];
       tens = BCD_result_extended2[7:4];
       hundreds = BCD_result_extended2[11:8];
+    end
+    else begin
+      ones = ones;
+      tens = tens;
+      hundreds = hundreds;
     end
    end 
   
    timer_display d0 (D1_SEG, D1_AN, ones, tens, hundreds, clk);
 endmodule
+
