@@ -4,6 +4,8 @@ Once files are added into a Vivado project, compile Assembler.cpp into an exe an
 memory.mem and select source file properties to see it's location). Write your program and run the Assembler and it will update memory.mem. Updating the memory.mem 
 requires a complete rebuild (synth > impl > bit file) to take affect. 
 
+Pyssembler.py can be used instead of Assembler.cpp, it is the same program but written in python.
+
 After uploading to board, use BTN0 (BTNC on nexys board) to view register contents (select register with SW[2:0]). 
 Use BTN2 (BNTU on nexys) to view memory contents (select memory location with SW[15:8]).
 
